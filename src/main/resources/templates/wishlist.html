@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Drag & Drop library -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/logout" class="logout">Log ud</a>
+
+    <h1>🎁 Min ønskeliste</h1>
+
+    <!-- Add wish -->
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Ønske" required>
+        <input type="text" name="description" placeholder="Beskrivelse" required>
+        <button type="submit">Tilføj</button>
+    </form>
+
+    <!-- Wishlist -->
+    <div id="wishlist">
+
+        <div th:each="wish : ${wishes}"
+             class="wish"
+             th:data-id="${wish.id}">
+
+            <b th:text="${wish.name}"></b>
+            <p th:text="${wish.description}"></p>
+
+            <div class="actions">
+                <a th:href="@{/edit(id=${wish.id})}">Rediger</a>
+
+                <form action="/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${wish.id}">
+                    <button type="submit">Slet</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div th:if="${session.user != null}">
+        <p>Del din ønskeliste:</p>
+        <a th:href="@{'/wishlist/' + ${session.user.id}}">
+            Se offentlig liste
+        </a>
+    </div>
+
+</div>
+
+<script>
+    const sortable = new Sortable(document.getElementById('wishlist'), {
+        animation: 150,
+        onEnd: function () {
+
+            let order = [];
+            document.querySelectorAll('#wishlist .wish').forEach(el => {
+                order.push(el.dataset.id);
+            });
+
+            fetch('/updateOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

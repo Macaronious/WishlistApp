@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<h1>Login</h1>
+
+<p style="color:red;" th:text="${error}"></p>
+
+<form method="post" action="/doLogin">
+    <input type="text" name="username" placeholder="Brugernavn">
+    <input type="password" name="password" placeholder="Kodeord">
+    <button type="submit">Login</button>
+</form>
+
+<a href="/register">Opret bruger</a>
+
+</body>
+</html>
