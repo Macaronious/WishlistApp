@@ -37,16 +37,17 @@ public class WishController {
 
     @PostMapping("/add")
     public String addWish(@RequestParam String name,
-                          @RequestParam String description,
+                          @RequestParam(required = false) String description,
                           jakarta.servlet.http.HttpSession session) {
 
         User user = (User) session.getAttribute("user");
 
-        if (user == null) {
-            return "redirect:/login";
+        if (description == null) {
+            description = "";
         }
 
-        wishRepository.save(new Wish(name, description, user));
+        Wish wish = new Wish(name, description, user);
+        wishRepository.save(wish);
 
         return "redirect:/wishlist";
     }
@@ -117,5 +118,33 @@ public class WishController {
         }
     }
 
+    @PostMapping("/reserve")
+    public String toggleReserve(@RequestParam Long id,
+                                @RequestParam(required = false) String name) {
+
+        Wish wish = wishRepository.findById(id).orElse(null);
+
+        if (wish != null) {
+
+            if (!wish.isReserved()) {
+                wish.setReserved(true);
+
+                if (name == null || name.isEmpty()) {
+                    wish.setReservedBy("Anonym");
+                } else {
+                    wish.setReservedBy(name);
+                }
+
+            } else {
+                wish.setReserved(false);
+                wish.setReservedBy(null);
+            }
+
+            wishRepository.save(wish);
+            return "redirect:/wishlist/" + wish.getUser().getId();
+        }
+
+        return "redirect:/wishlist";
+    }
 
 }

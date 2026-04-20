@@ -6,14 +6,43 @@
 </head>
 <body>
 
-<h1 th:text="'Ønskeliste for ' + ${owner}"></h1>
+<div class="navbar">
+    <span>🎁 Offentlig ønskeliste</span>
+</div>
 
-<ul>
-    <li th:each="wish : ${wishes}">
-        <b th:text="${wish.name}"></b> -
-        <span th:text="${wish.description}"></span>
-    </li>
-</ul>
+<div class="container">
+
+    <h1 th:text="'Ønsker fra ' + ${owner}"></h1>
+
+    <div th:each="wish : ${wishes}" class="wish">
+
+        <span th:if="${wish.reserved}" class="badge reserved">Reserveret</span>
+        <span th:if="${!wish.reserved}" class="badge free">Ledig</span>
+
+        <b th:text="${wish.name}"></b>
+        <p th:text="${wish.description}"></p>
+        <p th:if="${wish.reserved}">
+            Reserveret af: <span th:text="${wish.reservedBy}"></span>
+        </p>
+
+        <div>
+            <form action="/reserve" method="post">
+                <input type="hidden" name="id" th:value="${wish.id}">
+
+                <div th:if="${!wish.reserved}">
+                    <input type="text" name="name" placeholder="Dit navn (valgfri)">
+                </div>
+
+                <button type="submit"
+                        th:text="${wish.reserved} ? 'Fjern reservation' : 'Reserver'"
+                        th:classappend="${wish.reserved} ? 'remove-btn' : 'reserve-btn'">
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>

@@ -12,6 +12,8 @@ public class Wish {
     private String name;
     private String description;
     private int position;
+    private boolean reserved;
+    private String reservedBy;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -54,6 +56,22 @@ public class Wish {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
+
+    public String getReservedBy() {
+        return reservedBy;
+    }
+
+    public void setReservedBy(String reservedBy) {
+        this.reservedBy = reservedBy;
     }
 
     public void setUser(User user) { this.user = user; }

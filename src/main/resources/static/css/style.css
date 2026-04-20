@@ -4,31 +4,39 @@ body {
     margin: 0;
 }
 
+/* Topbar */
+.navbar {
+    background: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* Container */
 .container {
     width: 50%;
     margin: auto;
-    margin-top: 60px;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    margin-top: 40px;
 }
 
+/* Titel */
 h1 {
     text-align: center;
-    margin-bottom: 20px;
 }
 
-a {
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-}
-
+/* Form */
 form {
     display: flex;
     gap: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 input {
@@ -38,41 +46,66 @@ input {
     border: 1px solid #ddd;
 }
 
+/* Buttons */
 button {
     background: linear-gradient(45deg, #4CAF50, #66bb6a);
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
 }
 
 button:hover {
     transform: scale(1.05);
 }
 
+.reserve-btn {
+    background: linear-gradient(45deg, #4CAF50, #66bb6a);
+}
+
+.remove-btn {
+    background: #ff4d4d;
+}
+
+
+/* Wish cards */
 .wish {
-    background: #f9fafc;
+    background: white;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: relative;
     transition: 0.2s;
 }
 
 .wish:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+/* Status badge */
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.badge.reserved {
+    background: #ff4d4d;
+    color: white;
+}
+
+.badge.free {
+    background: #4CAF50;
+    color: white;
+}
+
+/* Actions */
 .actions {
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
-.actions a {
-    margin-right: 10px;
-}
-
-.logout {
-    float: right;
+/* Links */
+a {
+    text-decoration: none;
+    color: #4CAF50;
 }
