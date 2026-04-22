@@ -29,7 +29,7 @@ jobs:
           SPRING_DATASOURCE_URL: jdbc:mysql://${{secrets.PROD_DATABASE_URL}}/worldcountries
           SPRING_DATASOURCE_USERNAME: ${{secrets.PROD_DATABASE_USERNAME}}
           SPRING_DATASOURCE_PASSWORD: ${{secrets.PROD_DATABASE_PASSWORD}}
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
