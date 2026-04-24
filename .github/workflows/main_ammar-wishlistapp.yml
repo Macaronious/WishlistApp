@@ -63,5 +63,5 @@ jobs:
         with:
           app-name: 'ammar-wishlistapp'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'java-app/*.jar'
           
